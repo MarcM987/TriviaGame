@@ -2,7 +2,7 @@
 TriviaGame_BootCamp_Week5_HW_Advanced Assignment(Timed Questions)
 
 ## Rules of the game
->Answer the question before time runs out. Once time runs or the incorrectr answer is chosen, the quesation will be counted as wrong and the correct answer will be show. A few moments later, the next question will appear. This will continue until all questions are completed or timed-out and your final score of correctr and inccorect/timed-out answers will be shown.
+>Answer the question before time runs out. If the incorrect answer is chosen, the quesation will be counted as wrong and the correct answer will be show. If the time runs out the question will be counted as unanswered. A few moments later, the next question will appear. This will continue until all questions are completed or timed-out and your final score of correct, incorrect, and unanswered questions will be shown.
 
 ### Assignment Instructions -Option Two: Advanced Assignment (Timed Questions)
 *You'll create a trivia game that shows only one question until the player answers it or their time runs out.
