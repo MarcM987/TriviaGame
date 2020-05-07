@@ -30,6 +30,26 @@ var game = {
     }],
     correct: 0,
     incorrect: 0,
-    unanswered: 0
+    unanswered: 0,
+    time: 30,
+    start: false,
+    nextQ: false
+
 }
+
+
+$("#start").on("click", function(){
+    document.getElementById("start").style.display = "none";
+    document.getElementById("wrapper2").style.display = "block";
+    //call function start clock
+    //call function display question
+
+});
+
+//diaplay question function
+    //if nxtQ is true display next function
+
+//start clock function
+    //if time == 0 thn nxtQ = true
+
 
