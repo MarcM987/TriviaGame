@@ -1,0 +1,29 @@
+body{
+    background: url("../images/matrix.jpg");
+}
+
+#wrapper{
+    background-color: rgba(255, 217, 0, 0.753);
+    height: 500px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#title{
+    color:blue;
+    margin-bottom: 50px;
+}
+
+#wrapper2{
+    display: none;
+}
+
+#start{
+    background-color: pink;
+    border: 2px solid black;
+    margin-top: 100px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
