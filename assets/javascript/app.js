@@ -33,7 +33,8 @@ var game = {
     unanswered: 0,
     time: 30,
     start: false,
-    nextQ: false
+    nextQ: false,
+    questionNum: 0
 
 }
 
@@ -41,15 +42,47 @@ var game = {
 $("#start").on("click", function(){
     document.getElementById("start").style.display = "none";
     document.getElementById("wrapper2").style.display = "block";
-    //call function start clock
-    //call function display question
+    $("#time").text(game.time);
+    nxtQuestion();
+    runClock();
 
 });
 
-//diaplay question function
-    //if nxtQ is true display next function
+//
+function nxtQuestion(){
+    $("#question").text(game.questions[game.questionNum].question);
 
-//start clock function
-    //if time == 0 thn nxtQ = true
+    for(let i=0; i < game.questions[game.questionNum].options.length; ++i){
+        var option = $("<div>hello</div>").attr('id', 'option' + i).attr('class', 'options h5 font-weight-bold');
+        option.text(game.questions[game.questionNum].options[i]);
+        $("#question").append(option);
+    }
 
+    ++game.questionNum;
+}
 
+var intervalId;
+//
+function runClock(){    
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
+        //this was a fix, but may have been because i did not refresh page
+        // let time = game.time;
+        // --time;
+        // game.time = time;
+
+        --game.time;
+        
+        $("#time").text(game.time);
+
+        if(game.time == 0){
+            clearInterval(intervalId);
+        }
+
+        if(game.nxtQ){
+            nxtQuestion();
+        }
+
+    }, 1000);
+    
+}
