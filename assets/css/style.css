@@ -30,6 +30,7 @@ body{
 
 .options{
     margin: 20px;
+    border: 2px solid black; /*rmeove after test maybe add for hover effect*/ 
 
 }
 #question{
