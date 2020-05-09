@@ -11,3 +11,6 @@ TriviaGame_BootCamp_Week5_HW_Advanced Assignment(Timed Questions)
     * If the player runs out of time, tell the player that time's up and display the correct answer. Wait a few seconds, then show the next question.
     * If the player chooses the wrong answer, tell the player they selected the wrong option and then display the correct answer. Wait a few seconds, then show the next question.
 * On the final screen, show the number of correct answers, incorrect answers, and an option to restart the game (without reloading the page).
+
+#### Notes
+* I noticed scope applies to DOM objects as well, similarily as with other variables. For instance, an event on an option added within a function could only be accessed within that same function and does not have a conventional global scope. i.e. attempts to listen to an event on an option id outside of the function scope does not yield an error, so javascript must know it exists, but that event listener remains nonfunctional; almost as if there is a partial global scope maybe? additional research and testing required. 
