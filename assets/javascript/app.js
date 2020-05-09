@@ -34,7 +34,7 @@ var game = {
     incorrect: 0,
     unanswered: 0,
     time: 30,
-    nextQ: false,
+    nextQ: true,
     questionNum: 0,
     choice: ""
 
@@ -86,10 +86,6 @@ function runClock(){
         
         $("#time").text(game.time);
 
-        if(game.nextQ){
-            // nxtQuestion();   
-        }
-
         if(game.time == 0){
             clearInterval(intervalId);
             game.time = 30;
@@ -110,17 +106,51 @@ function responseDisplay(){
         ++game.correct;
     }else if(game.answer == "timeout"){
         response = "Time Out!!"
-        ++game.incorrect;
-    }else{
         ++game.unanswered;
+    }else{
+        ++game.incorrect;
         response = "Incorrect!!"
     }
     $("#question").text(response + " The answer is: " + game.questions[game.questionNum-1].answer)
-    
     game.answer = "";
 
+    //add response images/gifs
+
+    //checks to see if there are any questions left
+    if(game.questions.length <= game.questionNum){
+        game.nextQ = false;
+    }
+
+    //
     setTimeout(() => {
-        runClock();
-        nxtQuestion();
-    }, 5000)
+        if(!game.nextQ){
+            //show end page  
+            $("#question").text("All done, heres how you did!");
+            let answers = [
+                $("<div>Correct Answers: </div>").append(game.correct),
+                $("<div>Incorrect Answers: </div>").append(game.incorrect),
+                $("<div>Unanswered: </div>").append(game.unanswered)];
+            $("#question").append(answers);
+
+            //start over button add, could be combined for shorter code,
+                //but would create an unclear flow
+            $("#question").append($("<div>Start Over?</div>").attr('id', 'startO').attr('class', 'h3'));
+            $("#startO").on("click", function(){
+                //resets to game's default environment
+                game.correct = 0;
+                game.incorrect = 0;
+                game.unanswered = 0;
+                game.nextQ = true;
+                game.questionNum = 0;
+                document.getElementById("start").style.display = "block";
+                document.getElementById("wrapper2").style.display = "none";
+
+            });
+
+        }else{
+            runClock();
+            nxtQuestion();
+        }
+
+    }, 5000) 
 }
