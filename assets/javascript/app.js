@@ -40,7 +40,7 @@ var game = {
 
 }
 
-//
+//removes start button, adds questions, and begins the game
 $("#start").on("click", function(){
     document.getElementById("start").style.display = "none";
     document.getElementById("wrapper2").style.display = "block";
@@ -54,8 +54,9 @@ $("#start").on("click", function(){
 function nxtQuestion(){
     $("#question").text(game.questions[game.questionNum].question);
 
+    //adds all options and event handling
     for(let i=0; i < game.questions[game.questionNum].options.length; ++i){
-        var option = $("<div>hello</div>").attr('id', 'option' + i).attr('class', 'options h5 font-weight-bold');
+        var option = $("<div>").attr('id', 'option' + i).attr('class', 'options h5 font-weight-bold');
         option.text(game.questions[game.questionNum].options[i]);
         $("#question").append(option);
         //note removing previously created options is unnecessary, 
@@ -72,7 +73,7 @@ function nxtQuestion(){
             responseDisplay();
         });
 
-        //
+        //option stylings for on hover event
         $("#option" + i).hover(function(){
             document.getElementById("option" + i ).style.border = "2px solid black";
             document.getElementById("option" + i ).style.backgroundColor = "pink";
@@ -130,7 +131,7 @@ function responseDisplay(){
         game.nextQ = false;
     }
 
-    //
+    //goes to next question or ends the game
     setTimeout(() => {
         if(!game.nextQ){
             //show end page  
