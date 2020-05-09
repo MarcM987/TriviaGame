@@ -37,7 +37,7 @@ var game = {
     start: false, //might not be needed
     nextQ: false,
     questionNum: 0,
-    choice = ""
+    choice: ""
 
 }
 
@@ -51,6 +51,16 @@ $("#start").on("click", function(){
 
 });
 
+
+//why did this not work?
+// for(let i=0; i<=4; ++i){
+//     $("#option" + i).on("click", function(){
+//         game.answer =  game.questions[game.questionNum-1].options[i];
+//         console.log(i);
+//         responseDisplay();
+//     });
+// }
+
 //
 function nxtQuestion(){
     $("#question").text(game.questions[game.questionNum].question);
@@ -59,6 +69,13 @@ function nxtQuestion(){
         var option = $("<div>hello</div>").attr('id', 'option' + i).attr('class', 'options h5 font-weight-bold');
         option.text(game.questions[game.questionNum].options[i]);
         $("#question").append(option);
+
+        //this needs to be here since outside of this function, the created id's can't use onclick events
+        $("#option" + i).on("click", function(){
+            game.answer =  game.questions[game.questionNum].options[i];
+            console.log(i);
+            responseDisplay();
+        });
     }
 
     ++game.questionNum;
@@ -81,6 +98,7 @@ function runClock(){
         if(game.time == 0){
             clearInterval(intervalId);
             game.time = 30;
+            game.answer = "timeout";
             responseDisplay();
 
         }
@@ -96,7 +114,18 @@ function runClock(){
 
 //
 function responseDisplay(){
-    $("#question").text("incorrect, correct, or timeout, " + "The answer is: " + game.questions[game.questionNum-1].answer)
+    let response = "";
+    if(game.answer == game.questions[game.questionNum-1].answer){
+        response = "Correct!!"
+    }else if(game.answer == "timeout"){
+        response = "Time Out!!"
+    }else{
+        response = "Incorrect!!"
+    }
+    $("#question").text(response + " The answer is: " + game.questions[game.questionNum-1].answer)
+    
+    game.answer = "";
+
     setTimeout(() => {
         runClock();
         nxtQuestion();
