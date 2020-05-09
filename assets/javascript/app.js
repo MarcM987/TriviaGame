@@ -1,5 +1,7 @@
+//
 $(document).ready();
 
+//
 var game = {
     theme: "The Matrix",
     questions: [question1={
@@ -32,13 +34,14 @@ var game = {
     incorrect: 0,
     unanswered: 0,
     time: 30,
-    start: false,
+    start: false, //might not be needed
     nextQ: false,
-    questionNum: 0
+    questionNum: 0,
+    choice = ""
 
 }
 
-
+//
 $("#start").on("click", function(){
     document.getElementById("start").style.display = "none";
     document.getElementById("wrapper2").style.display = "block";
@@ -77,12 +80,25 @@ function runClock(){
 
         if(game.time == 0){
             clearInterval(intervalId);
+            game.time = 30;
+            responseDisplay();
+
         }
 
-        if(game.nxtQ){
-            nxtQuestion();
+        if(game.nextQ){
+            // nxtQuestion();
+            
         }
 
     }, 1000);
     
+}
+
+//
+function responseDisplay(){
+    $("#question").text("incorrect, correct, or timeout, " + "The answer is: " + game.questions[game.questionNum-1].answer)
+    setTimeout(() => {
+        runClock();
+        nxtQuestion();
+    }, 5000)
 }
