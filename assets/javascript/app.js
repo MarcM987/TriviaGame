@@ -96,6 +96,7 @@ function runClock(){
         
         $("#time").text(game.time);
 
+        //responds to out of time regarding the timer and game
         if(game.time == 0){
             clearInterval(intervalId);
             game.time = 30;
@@ -104,7 +105,7 @@ function runClock(){
 
         }
 
-    }, 1000);
+    }, 1000);//1 second interval
     
 }
 
@@ -162,5 +163,5 @@ function responseDisplay(){
             nxtQuestion();
         }
 
-    }, 5000) 
+    }, 5000) //waits 5 seconds
 }
