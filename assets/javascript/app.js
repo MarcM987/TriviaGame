@@ -34,7 +34,6 @@ var game = {
     incorrect: 0,
     unanswered: 0,
     time: 30,
-    start: false, //might not be needed
     nextQ: false,
     questionNum: 0,
     choice: ""
@@ -51,16 +50,6 @@ $("#start").on("click", function(){
 
 });
 
-
-//why did this not work?
-// for(let i=0; i<=4; ++i){
-//     $("#option" + i).on("click", function(){
-//         game.answer =  game.questions[game.questionNum-1].options[i];
-//         console.log(i);
-//         responseDisplay();
-//     });
-// }
-
 //
 function nxtQuestion(){
     $("#question").text(game.questions[game.questionNum].question);
@@ -70,10 +59,16 @@ function nxtQuestion(){
         option.text(game.questions[game.questionNum].options[i]);
         $("#question").append(option);
 
-        //this needs to be here since outside of this function, the created id's can't use onclick events
+        //this needs to be here since outside of this function, 
+            //the created id's can't use onclick events
+            //it seems scope applies here as well to a degree
         $("#option" + i).on("click", function(){
-            game.answer =  game.questions[game.questionNum].options[i];
-            console.log(i);
+            game.answer =  game.questions[game.questionNum-1].options[i];
+            
+            //clock resets
+            game.time = 30;
+            clearInterval(intervalId);
+            
             responseDisplay();
         });
     }
@@ -86,14 +81,13 @@ var intervalId;
 function runClock(){    
     clearInterval(intervalId);
     intervalId = setInterval(() => {
-        //this was a fix, but may have been because i did not refresh page
-        // let time = game.time;
-        // --time;
-        // game.time = time;
-
         --game.time;
         
         $("#time").text(game.time);
+
+        if(game.nextQ){
+            // nxtQuestion();   
+        }
 
         if(game.time == 0){
             clearInterval(intervalId);
@@ -103,10 +97,7 @@ function runClock(){
 
         }
 
-        if(game.nextQ){
-            // nxtQuestion();
-            
-        }
+
 
     }, 1000);
     
@@ -117,9 +108,12 @@ function responseDisplay(){
     let response = "";
     if(game.answer == game.questions[game.questionNum-1].answer){
         response = "Correct!!"
+        ++game.correct;
     }else if(game.answer == "timeout"){
         response = "Time Out!!"
+        ++game.incorrect;
     }else{
+        ++game.unanswered;
         response = "Incorrect!!"
     }
     $("#question").text(response + " The answer is: " + game.questions[game.questionNum-1].answer)
