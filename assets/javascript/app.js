@@ -1,7 +1,7 @@
-//
+//waits for the document to be ready before executing js
 $(document).ready();
 
-//
+//object for the game's questions/answers and tracking
 var game = {
     theme: "The Matrix",
     questions: [question1={
@@ -50,7 +50,7 @@ $("#start").on("click", function(){
 
 });
 
-//
+//adds the question and all on click events
 function nxtQuestion(){
     $("#question").text(game.questions[game.questionNum].question);
 
@@ -58,10 +58,10 @@ function nxtQuestion(){
         var option = $("<div>hello</div>").attr('id', 'option' + i).attr('class', 'options h5 font-weight-bold');
         option.text(game.questions[game.questionNum].options[i]);
         $("#question").append(option);
+        //note removing previously created options is unnecessary, 
+            //they are simply overwritten due to scope
 
-        //this needs to be here since outside of this function, 
-            //the created id's can't use onclick events
-            //it seems scope applies here as well to a degree
+        //due to scope, the created id's can't use onclick events outside this loop/function
         $("#option" + i).on("click", function(){
             game.answer =  game.questions[game.questionNum-1].options[i];
             
@@ -76,8 +76,9 @@ function nxtQuestion(){
     ++game.questionNum;
 }
 
+
+//runs the clock for the game, calling response or end of game functions appropriately
 var intervalId;
-//
 function runClock(){    
     clearInterval(intervalId);
     intervalId = setInterval(() => {
@@ -97,13 +98,11 @@ function runClock(){
 
         }
 
-
-
     }, 1000);
     
 }
 
-//
+//displays the response to the given question
 function responseDisplay(){
     let response = "";
     if(game.answer == game.questions[game.questionNum-1].answer){
