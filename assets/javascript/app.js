@@ -71,6 +71,15 @@ function nxtQuestion(){
             
             responseDisplay();
         });
+
+        //
+        $("#option" + i).hover(function(){
+            document.getElementById("option" + i ).style.border = "2px solid black";
+            document.getElementById("option" + i ).style.backgroundColor = "pink";
+        },function(){
+            document.getElementById("option" + i ).style.border = "";
+            document.getElementById("option" + i ).style.backgroundColor = "";
+        });
     }
 
     ++game.questionNum;
