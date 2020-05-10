@@ -48,6 +48,11 @@ $("#start").on("click", function(){
     nxtQuestion();
     runClock();
 
+    //this assumes there is an image for each question and hides them
+    for(let i=0; i<game.questions.length; ++i){
+        document.getElementById("img" + i).style.display = "none";
+    }
+
 });
 
 //adds the question and all on click events
@@ -125,7 +130,8 @@ function responseDisplay(){
     $("#question").text(response + " The answer is: " + game.questions[game.questionNum-1].answer)
     game.answer = "";
 
-    //add response images/gifs
+    //shows response images/gifs
+    document.getElementById("img" + (game.questionNum-1)).style.display = "block"; 
 
     //checks to see if there are any questions left
     if(game.questions.length <= game.questionNum){
@@ -134,6 +140,9 @@ function responseDisplay(){
 
     //goes to next question or ends the game
     setTimeout(() => {
+        //hides response gif
+        document.getElementById("img" + (game.questionNum-1)).style.display = "none";
+
         if(!game.nextQ){
             //show end page  
             $("#question").text("All done, heres how you did!");
@@ -165,3 +174,14 @@ function responseDisplay(){
 
     }, 5000) //waits 5 seconds
 }
+
+
+
+/*To Do:
+Essential: 
+    None
+Extra:
+    startover needs styling to be on hover and add spacing between the score and alldone
+Known Errors: 
+    None
+*/
